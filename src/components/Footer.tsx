@@ -1,12 +1,23 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
+const viewport = { once: false, amount: 0.2 as const };
 
 export default function Footer() {
   return (
     <footer className="bg-[#FFF5F0] pt-0 pb-0">
       {/* CTA Card */}
       <div className="max-w-[1296px] mx-auto px-6">
-        <div className="relative bg-[#2D1A2E] rounded-[10px] py-10 md:py-16 px-8 text-center overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative bg-[#2D1A2E] rounded-[10px] py-10 md:py-16 px-8 text-center overflow-hidden"
+        >
           {/* Decorative shape */}
           <div className="absolute right-8 bottom-8 w-[50px] h-[100px] -rotate-90 hidden md:block">
             <Image src="/images/footer-shape.svg" alt="" width={100} height={50} />
@@ -24,7 +35,7 @@ export default function Footer() {
           >
             Agendar Cita
           </Link>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom Bar */}

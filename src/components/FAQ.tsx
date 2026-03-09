@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Lightbox from "./Lightbox";
+import { motion } from "framer-motion";
 
 const services = [
   {
     name: "Uñas Acrílicas / Polygel",
-    image: "/images/content-image-1.png",
+    image: "https://res.cloudinary.com/dwoau0ajc/image/upload/v1770660560/harmony_1_payacj.jpg",
     hasWarranty: true,
     description:
       "Uñas acrílicas o polygel en técnica escultural, mani express y gel de color liso. Diseños personalizados con materiales de la más alta calidad para un acabado perfecto y duradero.",
@@ -30,7 +32,7 @@ const services = [
   },
   {
     name: "Extensiones de Pestañas",
-    image: "/images/content-image-2.png",
+    image: "https://res.cloudinary.com/dwoau0ajc/image/upload/v1772661771/IMG_9206_u4qak0_eiwm3e.jpg",
     hasWarranty: false,
     description:
       "Extensión de pestañas en técnica clásica, híbrida, tecnológica/volumen y mega volumen artesanal. Realza tu mirada de forma natural con el estilo que más te favorezca.",
@@ -49,7 +51,7 @@ const services = [
   },
   {
     name: "Nivelación Rubber Gel",
-    image: "/images/content-image-1.png",
+    image: "https://res.cloudinary.com/dwoau0ajc/image/upload/v1773075593/IMG_1867_expszn_qsvdse.jpg",
     hasWarranty: true,
     description:
       "Nivelación en uña natural con rubber gel, mani express y gel color liso. Ideal para proteger y fortalecer la uña natural dándole un acabado impecable.",
@@ -73,7 +75,7 @@ const services = [
   },
   {
     name: "Gel Semi Permanente",
-    image: "/images/content-image-2.png",
+    image: "https://res.cloudinary.com/dwoau0ajc/image/upload/v1772662725/IMG_2187_gfavrc_nndnzr.jpg",
     hasWarranty: true,
     description:
       "Gel de color liso sobre uña natural. Un servicio sencillo y elegante que aporta brillo y color duradero sin necesidad de extensiones.",
@@ -97,7 +99,7 @@ const services = [
   },
   {
     name: "Sistema Híbrido",
-    image: "/images/content-image-1.png",
+    image: "https://res.cloudinary.com/dwoau0ajc/image/upload/v1773078582/IMG_1892_ybbcii_1_iz9aoy.jpg",
     hasWarranty: true,
     description:
       "Plataforma de polygel en técnica escultural o sobre uña natural, nivelación de rubber gel, mani express y gel de color liso. Lo mejor de varios sistemas en uno.",
@@ -120,8 +122,8 @@ const services = [
     ],
   },
   {
-    name: "Manicura Rusa",
-    image: "/images/content-image-2.png",
+    name: "Manicura Russa",
+    image: "https://res.cloudinary.com/dwoau0ajc/image/upload/v1772662727/IMG_4612_r2jcyi_uckxt9.jpg",
     hasWarranty: false,
     description:
       "Limpieza de cutícula profunda en seco y gel de color liso. Una técnica de precisión que deja la cutícula perfectamente definida y un acabado ultra limpio.",
@@ -140,7 +142,7 @@ const services = [
   },
   {
     name: "Manicura Spa & Pedicure Spa",
-    image: "/images/content-image-1.png",
+    image: "https://res.cloudinary.com/dwoau0ajc/image/upload/v1772658568/IMG_2174_snbzve_njkmao.jpg",
     hasWarranty: false,
     description:
       "Manicura Spa: sales, exfoliante, mascarilla, limpieza de cutícula, corte, cuadratura y gel de color liso. Pedicure Spa: sales, exfoliante, mascarilla, limpieza de canales, cutícula, callosidades y gel de color liso.",
@@ -159,7 +161,7 @@ const services = [
   },
   {
     name: "Lash Lifting",
-    image: "/images/content-image-2.png",
+    image: "https://res.cloudinary.com/dwoau0ajc/image/upload/v1773075891/IMG_9089_gwug2b_qe1gfp.jpg",
     hasWarranty: false,
     description:
       "Rizado de pestañas naturales. Un tratamiento que levanta y ondula tu pestaña propia dándole volumen y apertura a la mirada sin necesidad de extensiones.",
@@ -178,7 +180,7 @@ const services = [
   },
   {
     name: "Diseño de Ceja",
-    image: "/images/content-image-1.png",
+    image: "https://res.cloudinary.com/dwoau0ajc/image/upload/v1773075900/IMG_9144_m84vki_javmkd.jpg",
     hasWarranty: false,
     description:
       "Diseño con visagismo de tus cejas, contorno de hilos con pigmento, depilación de ceja y laminado. Realzamos tu mirada con la forma perfecta para tu rostro.",
@@ -197,16 +199,26 @@ const services = [
   },
 ];
 
+const viewport = { once: false, amount: 0.2 as const };
+
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
 
   return (
+    <>
     <section id="servicios" className="bg-[#FFF5F0] pb-12 md:pb-16 lg:pb-[120px]">
       <div className="max-w-[1076px] mx-auto px-6">
-        <h2 className="font-jakarta font-bold text-2xl md:text-[40px] lg:text-[46px] leading-[1.3] text-[#2D1A2E] text-center mb-12">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: 0.7 }}
+          className="font-jakarta font-bold text-2xl md:text-[40px] lg:text-[46px] leading-[1.3] text-[#2D1A2E] text-center mb-12"
+        >
           Nuestros Servicios
-        </h2>
+        </motion.h2>
 
         <div className="rounded-[10px] overflow-hidden">
           {services.map((service, index) => {
@@ -257,13 +269,16 @@ export default function FAQ() {
                 {isOpen && (
                   <div className="px-6 md:px-10 pb-6">
                     {/* Service Image */}
-                    <div className="w-full h-[200px] md:h-[300px] rounded-[10px] overflow-hidden mb-6">
+                    <div
+                      className="w-full h-[300px] md:h-[480px] rounded-[10px] overflow-hidden mb-6 cursor-zoom-in"
+                      onClick={() => setLightbox({ src: service.image, alt: service.name })}
+                    >
                       <Image
                         src={service.image}
                         alt={service.name}
                         width={900}
-                        height={300}
-                        className="w-full h-full object-cover"
+                        height={480}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                       />
                     </div>
 
@@ -319,5 +334,10 @@ export default function FAQ() {
         </div>
       </div>
     </section>
+
+      {lightbox && (
+        <Lightbox src={lightbox.src} alt={lightbox.alt} onClose={() => setLightbox(null)} />
+      )}
+    </>
   );
 }

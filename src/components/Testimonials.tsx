@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const testimonials = [
   {
@@ -14,23 +17,31 @@ const testimonials = [
       '"Lo que más me gusta de Harmony es que realmente te escuchan. Llegué sin saber qué quería y Kath me ayudó a encontrar el diseño perfecto. La calidad y la rapidez son increíbles."',
     name: "Clienta Placeholder",
     role: "Clienta frecuente",
-    avatar: "/images/testimonial-avatar-2.png",
+    avatar: "/images/testimonial-avatar-1.svg",
   },
   {
     quote:
-      '"Llevo más de un año viniendo a Harmony y no lo cambio por nada. Victoria y Kattya son las mejores, el lugar es hermoso y siempre me atienden con mucho amor. 100% recomendado."',
+      '"Llevo más de un año viniendo a Harmony y no lo cambio por nada. Victoria y Kathya son las mejores, el lugar es hermoso y siempre me atienden con mucho amor. 100% recomendado."',
     name: "Clienta Placeholder",
     role: "Clienta frecuente",
     avatar: "/images/testimonial-avatar-3.svg",
   },
 ];
 
+const viewport = { once: false, amount: 0.2 as const };
+
 export default function Testimonials() {
   return (
     <section className="bg-[#FFF5F0] pt-12 md:pt-16 lg:pt-[120px] pb-16">
       <div className="max-w-[1296px] mx-auto px-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: 0.7 }}
+          className="flex flex-col md:flex-row md:items-center md:justify-between mb-12"
+        >
           <h2 className="font-jakarta font-bold text-[32px] md:text-[40px] lg:text-[46px] leading-[58px] text-[#2D1A2E] max-w-[636px] mb-6 md:mb-0">
             Lo que dicen nuestras clientas
           </h2>
@@ -41,12 +52,19 @@ export default function Testimonials() {
           >
             Ver más en Instagram
           </Link>
-        </div>
+        </motion.div>
 
         {/* Testimonial Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="flex flex-col justify-between">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewport}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="flex flex-col justify-between"
+            >
               <p className="font-inter font-semibold text-[16px] md:text-[18px] leading-[30px] text-[#2D1A2E] mb-8">
                 {testimonial.quote}
               </p>
@@ -69,7 +87,7 @@ export default function Testimonials() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

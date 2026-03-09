@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const features = [
   {
@@ -13,16 +16,18 @@ const features = [
     iconWidth: 75,
     title: "17 Años de Experiencia",
     description:
-      "Kattya con 10 años y Victoria con 7 años de experiencia combinada en el mundo de las uñas y la belleza profesional.",
+      "Kathya con 10 años y Victoria con 7 años de experiencia combinada en el mundo de las uñas y la belleza profesional.",
   },
   {
     icon: "/images/feature-icon-3.svg",
     iconWidth: 75,
-    title: "Garantía de 3 Días",
+    title: "Garantía de 3 Días *",
     description:
-      "Garantía por levantamiento prematuro de gel o acrílico durante los primeros 3 días después de la aplicación. Aplica en uñas y pestañas.",
+      "Garantía por levantamiento prematuro de gel o acrílico durante los primeros 3 días después de la aplicación. Aplica en uñas y pestañas. Consultar condiciones. *",
   },
 ];
+
+const viewport = { once: false, amount: 0.2 as const };
 
 export default function Features() {
   return (
@@ -30,7 +35,14 @@ export default function Features() {
       <div className="max-w-[1296px] mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:divide-x md:divide-white/20">
           {features.map((feature, index) => (
-            <div key={index} className="px-4 md:px-8 first:pl-0 last:pr-0">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={viewport}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              className="px-4 md:px-8 first:pl-0 last:pr-0"
+            >
               <div className="mb-8">
                 <Image
                   src={feature.icon}
@@ -45,7 +57,7 @@ export default function Features() {
               <p className="font-inter text-[16px] md:text-[18px] leading-[30px] text-white opacity-80">
                 {feature.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
